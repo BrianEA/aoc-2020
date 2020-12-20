@@ -3,11 +3,6 @@
 # the pattern of trees on all lines extends to the right infinitely
 # this makes me think of modulus over a sequence...
 
-import re
-import collections
-import sys
-import itertools
-
 # data = '''
 # ..##.......
 # #...#...#..
