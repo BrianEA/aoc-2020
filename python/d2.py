@@ -1,9 +1,6 @@
 # toboggan shop password problem
 # data looks like a bunch of lines in no particular order finishing with a newline
 import re
-import collections
-import sys
-import itertools
 
 # data = '''
 # 1-3 a: abcde
