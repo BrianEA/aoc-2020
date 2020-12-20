@@ -21,31 +21,22 @@ passList = open('data/02.txt','r').read().strip().splitlines()
 # a-b c: foo  a:char position 1 (1-based), b:char position  2, the c: character should be in one of those 2 positions
 
 r = re.compile(r"(\d+)-(\d+) (.): (.+)")
-valids = []
 
 def countInStr(source, matchChar):
     return len(re.findall(matchChar, source))
         
-
+p1valids = []
+p2valids = []
 for pl in passList:
     m = r.search(pl)
-    minC, maxC, pchar, password = m.groups()
-    minC = int(minC)
-    maxC = int(maxC)
+    n1, n2, pchar, password = m.groups()
+    n1 = int(n1)
+    n2 = int(n2)
 
-    if minC <= countInStr(password, pchar) <= maxC:
-        valids.append(pl)
-
-print("Part 1: ", len(valids))
-valids = []
-
-for pl in passList:
-    m = r.search(pl)
-    pos1, pos2, pchar, password = m.groups()
-    pos1 = int(pos1) - 1
-    pos2 = int(pos2) - 1
+    if n1 <= countInStr(password, pchar) <= n2:
+        p1valids.append(pl)
+    if bool(password[n1-1] == pchar) ^ bool(password[n2-1] == pchar):
+        p2valids.append(pl)
     
-    if bool(password[pos1] == pchar) ^ bool(password[pos2] == pchar):
-        valids.append(pl)
-    
-print("Part 2: ", len(valids))
+print("Part 1: ", len(p1valids))
+print("Part 2: ", len(p2valids))
