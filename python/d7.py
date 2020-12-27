@@ -35,7 +35,7 @@ rList = open('data/07.txt','r').read().strip().splitlines()
 # not going to try making a single regex to split out everything perfect
 # my regexfu is insufficient
 r = re.compile(r"([^\n ]+ [^ ]+) bags contain (.*[,.]{1})")
-rules = {}
+bags = {}
 
 searchBag = 'shiny gold'
 searchMatchCount = 0
@@ -49,24 +49,23 @@ for rule in rList:
         # convert containExpression first into a key, value list, then a dict
         contains = dict([(" ".join(x.split()[1:3]), x.split()[0]) 
             for x in containExpression.split(', ')])
-    rules[name] = contains
+    bags[name] = contains
     
-def checkColor(name):
+def childrenMatch(color):
     matched = False
-    for childBag in rules[name].keys():
-        if childBag == searchBag or checkColor(childBag):
+    for childBag in bags[color]:
+        if childBag == searchBag or childrenMatch(childBag):
             matched = True
     return matched
 
-for x in [color for color in rules.keys()]:
-    if x in rules.keys():
-        if checkColor(x):
-            searchMatchCount += 1
+for color in bags:
+    if childrenMatch(color):
+        searchMatchCount += 1
     
-def countColor(name):
+def countColor(color):
     cnt = 0
-    for x in rules[name].keys():
-        bagCount = int(rules[name][x])
+    for x in bags[color]:
+        bagCount = int(bags[color][x])
         cnt += bagCount + countColor(x) * bagCount
     return cnt
                
