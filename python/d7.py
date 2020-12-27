@@ -51,21 +51,20 @@ for rule in rList:
             for x in containExpression.split(', ')])
     rules[name] = contains
     
-def checkColor(name):
+def checkColor(color):
     matched = False
-    for childBag in rules[name].keys():
+    for childBag in rules[color]:
         if childBag == searchBag or checkColor(childBag):
             matched = True
     return matched
 
-for x in [color for color in rules.keys()]:
-    if x in rules.keys():
-        if checkColor(x):
-            searchMatchCount += 1
+for color in rules:
+    if checkColor(color):
+        searchMatchCount += 1
     
 def countColor(name):
     cnt = 0
-    for x in rules[name].keys():
+    for x in rules[name]:
         bagCount = int(rules[name][x])
         cnt += bagCount + countColor(x) * bagCount
     return cnt
