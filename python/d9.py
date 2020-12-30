@@ -64,8 +64,7 @@ while windowSize < len(nums)+1:
     for idx in range(len(nums)+1-windowSize):
         if sum(nums[idx:idx+windowSize]) == invalidNum:
             solveList = list(nums[idx:idx+windowSize])
-            solveList.sort()          
             print("Final window size: ", windowSize)
-            print("Part 2: ", solveList[0]+solveList[windowSize-1])
+            print("Part 2: ", min(solveList) + max(solveList))
             sys.exit(0)
     windowSize += 1
